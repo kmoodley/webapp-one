@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Checkout example · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{../assets/dist/css/bootstrap.min.css}"/>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+    </style>
+
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" th:src="@{../assets/brand/bootstrap-logo.svg}" alt="" width="72"
+                 height="57">
+            <h2>Oops something bad happened!</h2>
+
+            <table class="table table-striped">
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <td scope="col">Key</td>-->
+<!--                    <td scope="col">Value</td>-->
+<!--                </tr>-->
+<!--                </thead>-->
+                <tbody>
+
+                <tr>
+                    <td>TimeStamp</td>
+                    <td th:text="${timestamp}"></td>
+                </tr>
+
+                <tr>
+                    <td>Status</td>
+                    <td th:text="${status}"></td>
+                </tr>
+
+                <tr>
+                    <td>error</td>
+                    <td th:text="${error}"></td>
+                </tr>
+
+                <tr>
+                    <td>message</td>
+                    <td th:text="${message}"></td>
+                </tr>
+
+                <tr>
+                    <td>path</td>
+                    <td th:text="${path}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </main>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2020–2021 WebOne</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../static/assets/dist/js/bootstrap.bundle.min.js"
+        th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>
