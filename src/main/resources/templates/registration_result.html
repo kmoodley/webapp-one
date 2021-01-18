@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Checkout example · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{../assets/dist/css/bootstrap.min.css}"/>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/form-validation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
+</head>
+<body class="bg-light">
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="95" height="95" fill="currentColor"
+                     class="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <p class="lead top-buffer">
+                <h2 th:text="${userRegisterResult}">Success</h2></p>
+            </div>
+        </div>
+        <div class="row align-items-center top-buffer">
+            <div class="col">
+                <a class="btn btn-primary" href="/" role="button">Home</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary" href="/viewUsers" role="button">View Users</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../static/assets/dist/js/bootstrap.bundle.min.js"
+        th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
+<script src="../static/assets/dist/js/bootstrap.bundle.min.js" th:src="@{../js/form-validation.js}"></script>
+</body>
+</html>

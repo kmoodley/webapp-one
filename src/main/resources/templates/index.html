@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{../assets/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
 
     <style>
       .bd-placeholder-img {
@@ -29,6 +30,10 @@
         }
       }
 
+
+
+
+
     </style>
     <link rel="stylesheet" type="text/css" th:href="@{../css/form-validation.css}"/>
 </head>
@@ -36,7 +41,7 @@
 
 <div class="container">
     <main>
-<!--        <div class="py-5 text-center">-->
+        <!--        <div class="py-5 text-center">-->
         <div class="mx-auto">
             <h2>Register User</h2>
             <p class="lead">Please fill out the form below.</p>
@@ -44,35 +49,43 @@
 
         <div class="row g-3">
             <div class="col-md-7 col-lg-8">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" novalidate action="#"
+                      th:action="@{/registerUser}"
+                      th:object="${userProfile}"
+                      method="post">
+
                     <div class="row g-3">
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" th:object="${securityData}">
                             <label for="inputEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" required>
+                            <input type="email" th:field="*{emailAddress}" class="form-control" id="inputEmail"
+                                   required>
                             <div class="invalid-feedback">
                                 Please enter in a valid email address.
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" th:object="${securityData}">
                             <label for="inputPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword" required>
+                            <input type="password" th:field="*{password}" class="form-control" id="inputPassword"
+                                   required>
                             <div class="invalid-feedback">
-                                Please enter in a valid email address.
+                                Please enter in a valid password
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <label for="inputFirstName" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="inputFirstName" placeholder="" value="" required>
+                            <input type="text" th:field="*{firstname}" class="form-control" id="inputFirstName"
+                                   placeholder="" value=""
+                                   required>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
-
                         <div class="col-sm-6">
                             <label for="inputLastName" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="inputLastName" placeholder="" value="" required>
+                            <input type="text" th:field="*{lastname}" class="form-control" id="inputLastName"
+                                   placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
@@ -80,13 +93,16 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="date" class="form-control" input="inputBirthday" placeholder="Birthday" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="date" th:field="*{dateOfBirth}" class="form-control" input="inputBirthday"
+                                   value="1970/01/01" placeholder="Birthday"
+                                   aria-label="Username" aria-describedby="basic-addon1">
                         </div>
 
                         <div class="col-12">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                <label class="form-check-label" for="invalidCheck">
+                                <input th:field="*{termsAndConditions}" class="form-check-input" type="checkbox"
+                                       value="" id="termsAndConditionsCheck" checked>
+                                <label class="form-check-label" for="termsAndConditionsCheck">
                                     Agree to terms and conditions
                                 </label>
                                 <div class="invalid-feedback">
@@ -102,6 +118,20 @@
             </div>
         </div>
     </main>
+
+    <div class="row top-buffer">
+        <div class="col">
+            2021
+        </div>
+        <div class="col">
+            <div class="text-danger" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'production')}">
+                production-mode
+            </div>
+            <div class="text-success" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'development')}">
+                development-mode
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="../static/assets/dist/js/bootstrap.bundle.min.js"

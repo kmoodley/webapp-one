@@ -1,11 +1,13 @@
 package co.za.entelect.relationship.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class RegisteredUser
+public class UserProfile
 {
     @Id
     @GeneratedValue
@@ -13,18 +15,21 @@ public class RegisteredUser
 
     private String firstname;
     private String lastname;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
     private boolean termsAndConditions;
 
     @OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "security_data_id" )
     private SecurityData securityData;
 
-    private RegisteredUser()
+    public UserProfile()
     {
     }
 
-    public RegisteredUser(String password, String firstname, String lastname, String emailAddress,
-                          LocalDate dateOfBirth, boolean termsAndConditions)
+    public UserProfile(String password, String firstname, String lastname, String emailAddress,
+                       LocalDate dateOfBirth, boolean termsAndConditions)
     {
         securityData = new SecurityData(emailAddress, password);
         this.firstname = firstname;
@@ -33,7 +38,7 @@ public class RegisteredUser
         this.termsAndConditions = termsAndConditions;
     }
 
-    public RegisteredUser(String emailAddress, String password, boolean termsAndConditions)
+    public UserProfile(String emailAddress, String password, boolean termsAndConditions)
     {
         securityData = new SecurityData(emailAddress, password);
         this.termsAndConditions = termsAndConditions;
@@ -84,7 +89,7 @@ public class RegisteredUser
         this.securityData = securityData;
     }
 
-    private SecurityData getSecurityData()
+    public SecurityData getSecurityData()
     {
         return securityData;
     }
@@ -92,7 +97,7 @@ public class RegisteredUser
     @Override
     public String toString()
     {
-        return "RegisteredUser{" +
+        return "UserProfile{" +
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
@@ -113,7 +118,7 @@ public class RegisteredUser
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RegisteredUser user = (RegisteredUser) o;
+        UserProfile user = (UserProfile) o;
         return securityData.getEmailAddress().equals(user.getSecurityData().getEmailAddress()) ;
     }
 }

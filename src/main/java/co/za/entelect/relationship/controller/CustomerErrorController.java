@@ -17,7 +17,7 @@ import java.util.Map;
 public class CustomerErrorController implements ErrorController
 {
     private static final String ERROR_PATH = "/error";
-    private static final String ERROR_TEMPLATE = "customError";
+    private static final String ERROR_TEMPLATE = "custom_error";
 
     private final ErrorAttributes errorAttributes;
 

@@ -16,7 +16,7 @@ public class SecurityData implements Serializable
     private String password;
 
     @OneToOne(mappedBy = "securityData")
-    private RegisteredUser registeredUser;
+    private UserProfile userProfile;
 
 
     public String getEmailAddress()
@@ -39,9 +39,9 @@ public class SecurityData implements Serializable
         this.password = password;
     }
 
-    public void setRegisteredUser(RegisteredUser registeredUser)
+    public void setUserProfile(UserProfile userProfile)
     {
-        this.registeredUser = registeredUser;
+        this.userProfile = userProfile;
     }
 
     public SecurityData()
