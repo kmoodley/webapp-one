@@ -6,9 +6,7 @@ import co.za.entelect.relationship.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -50,7 +48,15 @@ public class RegistrationController
     @GetMapping("/viewUsers")
     public String viewUsers(Model model)
     {
-        model.addAttribute("users",registrationService.getUserList());
+        model.addAttribute("users", registrationService.getUserList());
+        return "view_users";
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable(value = "id") String id, Model model)
+    {
+        registrationService.deleteUser(Long.parseLong(id));
+        model.addAttribute("users", registrationService.getUserList());
         return "view_users";
     }
 }
