@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Checkout example · Bootstrap v5.0</title>
+    <title>View Users</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
@@ -30,6 +30,7 @@
           font-size: 3.5rem;
         }
       }
+
     </style>
 
 </head>
@@ -40,7 +41,7 @@
 
         <div class="mx-auto">
             <p class="lead">
-                <h2>List of Users</h2>
+            <h2>List of Users</h2>
             </p>
 
             <table class="table table-striped">
@@ -51,6 +52,7 @@
                     <td scope="col">Last Name</td>
                     <td scope="col">email</td>
                     <td scope="col">Terms Accepted</td>
+                    <td scope="col"></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,6 +66,11 @@
                         <span th:if="${user.termsAndConditions}">Accepted</span>
                         <span class="text-danger" th:unless="${user.termsAndConditions}">Not Accepted</span>
                     </td>
+                    <td><a class="btn btn-primary" th:href="@{/deleteUser/{id}(id=${user.id})}" role="button">Delete</a></td>
+
+<!--                    <a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a>-->
+
+
                 </tr>
                 </tbody>
             </table>

@@ -54,4 +54,9 @@ public class RegistrationService
         userRepository.findAll().forEach(s -> userList.add(s));
         return userList;
     }
+
+    public void deleteUser(Long userId)
+    {
+        userRepository.deleteById(userId);
+    }
 }
