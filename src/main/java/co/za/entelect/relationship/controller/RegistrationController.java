@@ -1,8 +1,9 @@
 package co.za.entelect.relationship.controller;
 
-import co.za.entelect.relationship.domain.UserProfile;
 import co.za.entelect.relationship.domain.SecurityData;
-import co.za.entelect.relationship.service.RegistrationService;
+import co.za.entelect.relationship.domain.UserProfile;
+import co.za.entelect.relationship.exception.UserAlreadyExistException;
+import co.za.entelect.relationship.service.WebRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,12 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController
 {
-    private RegistrationService registrationService;
+    private WebRegistrationService webRegistrationService;
 
     @Autowired
-    public RegistrationController(RegistrationService registrationService)
+    public RegistrationController(WebRegistrationService webRegistrationService)
     {
-        this.registrationService = registrationService;
+        this.webRegistrationService = webRegistrationService;
     }
 
     @GetMapping("/")
@@ -36,27 +37,34 @@ public class RegistrationController
                                      @Valid @ModelAttribute("securityData") SecurityData securityData,
                                      Model model)
     {
-
-        String message = "Success " + user.getFirstname() + " " + user.getLastname() + " has been registered!";
+        String successMessage = "Success " + user.getFirstname() + " " + user.getLastname() + " has been registered!";
         user.setSecurityData(securityData);
-        registrationService.register(user);
+        try
+        {
+            webRegistrationService.register(user);
+        } catch (UserAlreadyExistException e)
+        {
+            String errorMessage = "r/HolUp " + securityData.getEmailAddress() + " has already been registered!";
+            model.addAttribute("registrationErrorMessage", errorMessage);
+            return "index";
+        }
 
-        model.addAttribute("userRegisterResult", message);
+        model.addAttribute("userRegisterResult", successMessage);
         return "registration_result";
     }
 
     @GetMapping("/viewUsers")
     public String viewUsers(Model model)
     {
-        model.addAttribute("users", registrationService.getUserList());
+        model.addAttribute("users", webRegistrationService.getUserList());
         return "view_users";
     }
 
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable(value = "id") String id, Model model)
     {
-        registrationService.deleteUser(Long.parseLong(id));
-        model.addAttribute("users", registrationService.getUserList());
+        webRegistrationService.deleteUser(Long.parseLong(id));
+        model.addAttribute("users", webRegistrationService.getUserList());
         return "view_users";
     }
 }

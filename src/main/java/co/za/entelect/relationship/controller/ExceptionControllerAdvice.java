@@ -10,6 +10,7 @@ public class ExceptionControllerAdvice
     @ExceptionHandler
     public String exception(Exception exception, Model model)
     {
+        exception.printStackTrace();
         model.addAttribute("exception",exception);
         return "exception";
     }
