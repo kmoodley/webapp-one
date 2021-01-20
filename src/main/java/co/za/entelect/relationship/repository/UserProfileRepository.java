@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserProfileRepository extends CrudRepository<UserProfile,Long>
 {
-
+    UserProfile findByFirstname(String firstname);
+    UserProfile findBySecurityData_EmailAddress(final String emailAddress);
 }
