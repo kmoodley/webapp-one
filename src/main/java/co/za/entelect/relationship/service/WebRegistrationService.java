@@ -7,14 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class WebRegistrationService
 {
-    private Set<UserProfile> userProfiles = new HashSet<>();
     private UserProfileRepository userRepository;
 
     public WebRegistrationService()
@@ -38,16 +35,6 @@ public class WebRegistrationService
         return false;
     }
 
-    public boolean validateUser(UserProfile userProfile)
-    {
-        return userProfile.isTermsAndConditions();
-    }
-
-    public Set<UserProfile> retrieveUsers()
-    {
-        return new HashSet<>(userProfiles);
-    }
-
     public List<UserProfile> getUserList()
     {
         List<UserProfile> userList = new ArrayList<>();
@@ -63,7 +50,6 @@ public class WebRegistrationService
     private boolean emailExist(String emailAddress)
     {
         UserProfile profile = userRepository.findBySecurityData_EmailAddress(emailAddress);
-        System.out.println("emailExist ==>> " + profile);
         return profile != null;
     }
 
