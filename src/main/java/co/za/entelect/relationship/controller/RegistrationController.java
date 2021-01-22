@@ -22,14 +22,14 @@ public class RegistrationController
         this.webRegistrationService = webRegistrationService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/registrationForm")
     public String registerUserForm(Model model)
     {
         UserProfile user = new UserProfile();
         SecurityData securityData = new SecurityData();
         model.addAttribute("userProfile", user);
         model.addAttribute("securityData", securityData);
-        return "index";
+        return "registrationForm";
     }
 
     @PostMapping("/registerUser")
@@ -53,7 +53,7 @@ public class RegistrationController
         return "registration_result";
     }
 
-    @GetMapping("/viewUsers")
+    @GetMapping("/admin/viewUsers")
     public String viewUsers(Model model)
     {
         model.addAttribute("users", webRegistrationService.getUserList());

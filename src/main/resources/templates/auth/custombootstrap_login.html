@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="fragments/page">
+<head th:replace="fragments/page :: html_head_nonav(~{::title},~{::link})">
+    <title>User Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/signin.css}"/>
+</head>
+
+<body class="text-center">
+
+<div class="container">
+    <main class="form-signin">
+        <form name="f" th:action="@{/login}" method="post">
+            <fieldset>
+                <legend>Please Login</legend>
+                <div th:if="${param.error}" class="alert alert-error">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
+                </div>
+                <label for="username" class="visually-hidden">Username</label>
+                <input type="text" id="username" name="username" class="form-control"/>
+
+                <label for="password" class="visually-hidden">Password</label>
+                <input type="password" id="password" name="password" class="form-control"/>
+                <div class="form-actions">
+                    <!--                    <button type="submit" class="btn">Log in</button>-->
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <div>
+            <p class="lead">
+                <a class="w-100 btn btn-lg btn-primary" href="/registrationForm" role="button">Register</a>
+            </p>
+        </div>
+    </main>
+</div>
+<div th:replace="fragments/page :: javascript_includes">...</div>
+</body>
+</html>
