@@ -14,6 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/sticky-footer.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../assets/dist/css/bootstrap.min.css}"/>
 
     <style>
@@ -121,5 +122,24 @@
             th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
 
 </div>
+
+<footer  th:fragment="app_context_footer" class="footer">
+    <div class="container">
+            <div class="row top-buffer">
+                <div class="col">
+                    2021
+                </div>
+                <div class="col">
+                    <div class="text-danger" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'production')}">
+                        production-mode
+                    </div>
+                    <div class="text-success" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'development')}">
+                        development-mode
+                    </div>
+                </div>
+            </div>
+    </div>
+</footer>
+
 </body>
 </html>

@@ -1,89 +1,65 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.79.0">
-    <title>Register User</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
-
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{../assets/dist/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-
-
-
-
-    </style>
-    <link rel="stylesheet" type="text/css" th:href="@{../css/form-validation.css}"/>
+<html lang="en" layout:decorator="fragments/page">
+<head th:replace="fragments/page :: html_base_head(~{::title},~{::link})">
+    <title>User Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/empty.css}"/>
 </head>
+
 <body class="bg-light">
+<nav th:replace="fragments/page :: navigation_bar_style_1">..</nav>
+
 
 <div class="container">
-    <main>
-        <!--        <div class="py-5 text-center">-->
-        <div class="mx-auto">
-            <h2>Welcome</h2>
-            <p class="lead">Not much going on here</p>
-        </div>
 
-        <div class="row g-3">
-            <div class="col-md-7 col-lg-8">
-                <div class="row align-items-center top-buffer">
-                    <div class="col">
-                        <a class="btn btn-primary" href="/admin/viewUsers" role="button">View Users</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="/login?logout" role="button">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    <div class="pt-md-3 pb-md-4">
+        <h1 class="bd-title mt-0">You have reached the main page</h1>
+        <p class="bd-lead">Feel free to stare at this for as long as you like. Once I find out what I want this to be
+            I will let you know...hopefully!</p>
 
-    <div class="row top-buffer">
-        <div class="col">
-            2021
-        </div>
-        <div class="col">
-            <div class="text-danger" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'production')}">
-                production-mode
+        <div class="row">
+            <div class="col" sec:authorize="hasRole('ROLE_ADMIN')" >
+                <a class="btn btn-primary" href="/admin/viewUsers" role="button">View Users [admin]</a>
             </div>
-            <div class="text-success" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'development')}">
-                development-mode
+            <div class="col">
+                <a class="btn btn-primary" href="/login?logout" role="button">Logout</a>
             </div>
         </div>
     </div>
+
+
+    <!--    <main>-->
+
+    <!--        <div class="row g-3">-->
+    <!--            <div class="col-md-7 col-lg-8">-->
+    <!--                <div class="row align-items-center top-buffer">-->
+    <!--                    <div class="col">-->
+    <!--                        <a class="btn btn-primary" href="/admin/viewUsers" role="button">View Users</a>-->
+    <!--                    </div>-->
+    <!--                    <div class="col">-->
+    <!--                        <a class="btn btn-primary" href="/login?logout" role="button">Logout</a>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </main>-->
+
+    <!--    <div class="row top-buffer">-->
+    <!--        <div class="col">-->
+    <!--            2021-->
+    <!--        </div>-->
+    <!--        <div class="col">-->
+    <!--            <div class="text-danger" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'production')}">-->
+    <!--                production-mode-->
+    <!--            </div>-->
+    <!--            <div class="text-success" th:if="${#arrays.contains(@environment.getActiveProfiles(), 'development')}">-->
+    <!--                development-mode-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 
-<script src="../static/assets/dist/js/bootstrap.bundle.min.js"
-        th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
-
-<script src="../static/assets/dist/js/bootstrap.bundle.min.js" th:src="@{../js/form-validation.js}"></script>
-
-<script src="../static/assets/dist/js/bootstrap.bundle.min.js"
-        th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
-
+<div th:replace="fragments/page :: javascript_includes">...</div>
+<div th:replace="fragments/page :: app_context_footer">...</div>
 
 </body>
 </html>

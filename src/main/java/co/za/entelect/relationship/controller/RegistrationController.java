@@ -1,9 +1,10 @@
 package co.za.entelect.relationship.controller;
 
-import co.za.entelect.relationship.domain.SecurityData;
 import co.za.entelect.relationship.domain.UserProfile;
 import co.za.entelect.relationship.exception.UserAlreadyExistException;
 import co.za.entelect.relationship.service.WebRegistrationService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,8 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController
 {
+    private static final Logger LOG = LogManager.getLogger();
+
     private WebRegistrationService webRegistrationService;
 
     @Autowired
@@ -25,30 +28,30 @@ public class RegistrationController
     @GetMapping("/registrationForm")
     public String registerUserForm(Model model)
     {
+        LOG.info("registerUserForm ==>> register user");
         UserProfile user = new UserProfile();
-        SecurityData securityData = new SecurityData();
         model.addAttribute("userProfile", user);
-        model.addAttribute("securityData", securityData);
+        model.addAttribute("defaultEmailAddress", "moodleyk@gmail.com");
         return "registrationForm";
     }
 
     @PostMapping("/registerUser")
-    public String registerUserSubmit(@Valid @ModelAttribute("userProfile") UserProfile user,
-                                     @Valid @ModelAttribute("securityData") SecurityData securityData,
-                                     Model model)
+    public String registerUserSubmit(@Valid @ModelAttribute("userProfile") UserProfile user, Model model)
     {
+        LOG.info("registerUserForm ==>> register user");
         String successMessage = "Success " + user.getFirstname() + " " + user.getLastname() + " has been registered!";
-        user.setSecurityData(securityData);
+
         try
         {
             webRegistrationService.register(user);
         } catch (UserAlreadyExistException e)
         {
-            String errorMessage = "r/HolUp " + securityData.getEmailAddress() + " has already been registered!";
+            String errorMessage = "r/HolUp " + user.getEmailAddress() + " has already been registered!";
             model.addAttribute("registrationErrorMessage", errorMessage);
             return "index";
         }
 
+        System.out.println("registerUserSubmit ==>> " + successMessage);
         model.addAttribute("userRegisterResult", successMessage);
         return "registration_result";
     }

@@ -4,13 +4,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class UserProfile
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstname;
@@ -21,8 +24,19 @@ public class UserProfile
 
     private boolean termsAndConditions;
 
-    @OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "security_data_id" )
-    private SecurityData securityData;
+    @Column(unique = true, nullable = false)
+    private String emailAddress;
+
+    @Column(nullable = false)
+    private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Roles> roles = new HashSet<>();
 
     public UserProfile()
     {
@@ -31,17 +45,12 @@ public class UserProfile
     public UserProfile(String password, String firstname, String lastname, String emailAddress,
                        LocalDate dateOfBirth, boolean termsAndConditions)
     {
-        securityData = new SecurityData(emailAddress, password);
         this.firstname = firstname;
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.termsAndConditions = termsAndConditions;
-    }
-
-    public UserProfile(String emailAddress, String password, boolean termsAndConditions)
-    {
-        securityData = new SecurityData(emailAddress, password);
-        this.termsAndConditions = termsAndConditions;
+        this.emailAddress = emailAddress;
+        this.password = password;
     }
 
     public Long getId()
@@ -89,14 +98,50 @@ public class UserProfile
         this.termsAndConditions = termsAndConditions;
     }
 
-    public void setSecurityData(SecurityData securityData)
+
+    public String getEmailAddress()
     {
-        this.securityData = securityData;
+        return emailAddress;
     }
 
-    public SecurityData getSecurityData()
+    public void setEmailAddress(String emailAddress)
     {
-        return securityData;
+        this.emailAddress = emailAddress;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public Set<Roles> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles)
+    {
+        this.roles = roles;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getEmailAddress());
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserProfile user = (UserProfile) o;
+        return getEmailAddress().equals(user.getEmailAddress());
     }
 
     @Override
@@ -108,22 +153,9 @@ public class UserProfile
                 ", lastname='" + lastname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", termsAndConditions=" + termsAndConditions +
-                ", securityData=" + securityData +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(securityData.getEmailAddress());
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserProfile user = (UserProfile) o;
-        return securityData.getEmailAddress().equals(user.getSecurityData().getEmailAddress()) ;
     }
 }
