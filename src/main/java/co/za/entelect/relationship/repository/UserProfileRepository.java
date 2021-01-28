@@ -17,10 +17,7 @@ public interface UserProfileRepository extends CrudRepository<UserProfile, Long>
 
     UserProfile findByFirstname(String firstname);
 
-    UserProfile findByEmailAddress(@Param("emailAddress") String emailAddress);
-
-    @Query("select u from UserProfile u join fetch u.roles r where u.emailAddress = :emailAddress")
-    UserProfile findByUsername(@Param("emailAddress") String emailAddress);
+    UserProfile findByEmailAddress(String emailAddress);
 
     @Query("SELECT u FROM UserProfile u WHERE u.termsAndConditions = 1")
     Collection<UserProfile> findAllActiveUsers();

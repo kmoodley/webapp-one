@@ -31,7 +31,6 @@ public class RegistrationController
         LOG.info("registerUserForm ==>> register user");
         UserProfile user = new UserProfile();
         model.addAttribute("userProfile", user);
-        model.addAttribute("defaultEmailAddress", "moodleyk@gmail.com");
         return "registrationForm";
     }
 

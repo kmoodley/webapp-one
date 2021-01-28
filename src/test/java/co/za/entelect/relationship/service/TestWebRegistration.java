@@ -90,7 +90,7 @@ public class TestWebRegistration
         Assert.assertEquals(1, registrationService.getRolesList().size());
 
         UserProfile user = new UserProfile("pass123", "Kemendran", "Moodley", "moodleyA@gmail.com", LocalDate.of(1982, 6, 22), true);
-        user.setRoles(rolesList);
+        //user.setRoles(rolesList);
         when(userProfileRepository.findAllUserRoles(user.getEmailAddress())).thenReturn(rolesList);
         Assert.assertEquals(1, registrationService.getAllUserRoles(user.getEmailAddress()).size());
     }

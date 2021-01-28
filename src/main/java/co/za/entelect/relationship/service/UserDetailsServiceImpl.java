@@ -1,7 +1,6 @@
 package co.za.entelect.relationship.service;
 
 import co.za.entelect.relationship.domain.UserProfile;
-import co.za.entelect.relationship.domain.dto.UserProfileDTO;
 import co.za.entelect.relationship.repository.UserProfileRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
