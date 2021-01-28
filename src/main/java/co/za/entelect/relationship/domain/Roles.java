@@ -1,8 +1,6 @@
 package co.za.entelect.relationship.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -13,9 +11,6 @@ public class Roles
     private Long id;
 
     private String role;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserProfile> users = new HashSet<>();
 
     public Roles()
     {
@@ -46,23 +41,12 @@ public class Roles
         this.role = role;
     }
 
-    public Set<UserProfile> getUsers()
-    {
-        return users;
-    }
-
-    public void setUsers(Set<UserProfile> users)
-    {
-        this.users = users;
-    }
-
     @Override
     public String toString()
     {
         return "Roles{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

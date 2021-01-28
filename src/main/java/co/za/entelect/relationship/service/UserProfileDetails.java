@@ -20,6 +20,7 @@ public class UserProfileDetails implements UserDetails
     private static final long serialVersionUID = 7860991398615837782L;
     private UserProfile userProfile;
 
+
     public UserProfileDetails(UserProfile user)
     {
         this.userProfile = user;
@@ -30,7 +31,9 @@ public class UserProfileDetails implements UserDetails
     {
 
         Collection<GrantedAuthority> authorities = new HashSet<>();
-        Set<Roles> roles = userProfile.getRoles();
+        Set<Roles> roles = new HashSet<>();
+        roles.add(new Roles("ROLE_ADMIN"));
+        roles.add(new Roles("ROLE_GUEST"));
 
         for (Roles role : roles)
         {

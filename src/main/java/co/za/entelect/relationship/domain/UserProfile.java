@@ -4,9 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,14 +27,6 @@ public class UserProfile
 
     @Column(nullable = false)
     private String password;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private Set<Roles> roles = new HashSet<>();
 
     public UserProfile()
     {
@@ -119,16 +109,6 @@ public class UserProfile
         this.password = password;
     }
 
-    public Set<Roles> getRoles()
-    {
-        return roles;
-    }
-
-    public void setRoles(Set<Roles> roles)
-    {
-        this.roles = roles;
-    }
-
     @Override
     public int hashCode()
     {
@@ -155,7 +135,6 @@ public class UserProfile
                 ", termsAndConditions=" + termsAndConditions +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,11 +89,8 @@ public class TestUserRepository
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         UserProfile persistentUser = session.find(UserProfile.class, userFoundByEmail.getId());
-
-        Assert.assertEquals(2, persistentUser.getRoles().size());
-
+        Assert.assertEquals(searchEmailAddress, persistentUser.getEmailAddress());
         session.getTransaction().commit();
         session.close();
 
