@@ -61,7 +61,7 @@
                     <td th:text="${userStat.count}">?</td>
                     <td th:text="${user.firstname}">?</td>
                     <td th:text="${user.lastname}">?</td>
-                    <td th:text="${user.securityData.emailAddress}">?</td>
+                    <td th:text="${user.emailAddress}">?</td>
                     <td>
                         <span th:if="${user.termsAndConditions}">Accepted</span>
                         <span class="text-danger" th:unless="${user.termsAndConditions}">Not Accepted</span>
